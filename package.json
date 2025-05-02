@@ -29,7 +29,9 @@
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
+    "babel-plugin-react-css-modules": "^5.2.6",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.5.3"
   }
 }

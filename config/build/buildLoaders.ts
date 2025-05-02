@@ -6,11 +6,20 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
   const isDev = options.mode === 'development'; // передаем булеан флажок на проверку мода, дабы использовать в дальнейшем какие-то опции, какие-то нет
 
+  const cssLoaderWithModules = {
+    loader: "css-loader",
+    options: {
+      modules: {
+        localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64:5]'
+      },
+    },
+  }
+
   const cssLoader = {
     test: /\.css$/i,
     use: [
-      isDev ? 'style-loader' : MiniCssExtractPlugin.loader, // если дев - то не используем, если прод - то используем
-      "css-loader"
+      isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+      cssLoaderWithModules, // адекват нейминг на локалке(девевол) и прод версии в виде сгенеренного хеша
     ], // теперь работают стили на реакте, МиниЭкстрактор (вроде бы он это делает) автоматом коннектит css файл при сборке в бандле
   }
 
